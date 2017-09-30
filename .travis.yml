@@ -6,6 +6,9 @@ services:
 php:
   - 7.0
 
+before_install:
+  - mysql -e 'CREATE DATABASE travis;'
+
 before_script:
   - cp .env.travis .env
   - composer config --global github-oauth.github.com $GITHUBPAK
