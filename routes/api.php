@@ -27,3 +27,14 @@ Route::match(['get', 'post'], '/teamspeak/', 'APIController@teamspeakServer');
 
 Route::get('/build-badge/', 'APIController@badge');
 
+
+
+
+
+/**
+ * New
+ */
+
+
+
+Route::get('/invite/{inviteCode}', 'InviteController@api_checkInviteCodeIsValid');

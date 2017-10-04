@@ -47,6 +47,7 @@ class Handler extends ExceptionHandler
 
 		if ($this->isHttpException($exception))
         {
+            return redirect('/');
             return $this->renderHttpException($exception);
         }
 

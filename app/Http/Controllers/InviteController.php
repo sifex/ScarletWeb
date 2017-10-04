@@ -9,81 +9,40 @@ use Scarlet\InviteCode;
 
 class InviteController extends Controller
 {
-    /**
-     * Route name for verify Steam Route
-     * @var string
-     */
-    public $steamOutRouteName = 'v2steamverify';
 
-    /**
-     * Index Method
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
+    public $steamOutRouteName = 'redirectToSteam';
+
+    public $steamInRouteName = 'steamVerifyLogin';
+
+    public $inviteCodeLength = InviteCode::inviteCodeLength;
+
     public function index(Request $request) {
-        return view('index');
+        return view('splash.index');
     }
 
-    /**
-     * @param $invite_code
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function invite($invite_code, Request $request) {
-        if(!self::checkInviteCode($invite_code)) {
-            return redirect()->route('v2index');
-        }
 
-        $request->session()->put('invite_code', $invite_code);
-        return redirect(SteamController::url(route($this->steamOutRouteName, ['invite_code' => $invite_code])));
-    }
 
-    public function steamverify() {
-        $steamID = SteamController::callback();
 
-        if(!$steamID) {
-            return redirect()->route('v2index');
-        }
 
-        $steamUser = new SteamUser($steamID, env('STEAM_API_KEY'));
-        dd($steamUser);
-
-        return response()->json($steamUser);
-    }
-
-    public function createUserWithSteamInfo($steamInfo) {
-        $user = User::create([
-            'username' => $steamInfo->steamID,
-            'steamID' => $steamInfo->steamID64,
-            'avatar' => $steamInfo->avatarFull,
-
-        ]);
-    }
-
-    /**
-     * Checks if the Invite Code is good or not
-     * @param $invite
-     * @return bool
-     */
-    public static function checkInviteCode($invite_to_check) {
-        $invite_row = InviteCode::where('invite_code', $invite_to_check)->first();
-
-        if(!is_object($invite_row) || $invite_row->user !== null) {
-            return false;
-        }
-
-        return true;
-    }
+//
+//    public function createUserWithSteamInfo($steamInfo) {
+//        $user = User::create([
+//            'username' => $steamInfo->steamID,
+//            'steamID' => $steamInfo->steamID64,
+//            'avatar' => $steamInfo->avatarFull
+//        ]);
+//    }
+//
 
     /**
      * Assign User to an Invite Code, hereby using the invite code up.
-     * @param $invite_code
+     * @param $inviteCode
      * @param $user
      * @return bool
      */
-    public function assignInviteCode($invite_code, $user) {
+    public function assignInviteCode($inviteCode, $user) {
 
-        $invite_row = \Scarlet\InviteCode::where('invite_code', $invite_code)->first();
+        $invite_row = \Scarlet\InviteCode::where('invite_code', $inviteCode)->first();
 
         if(!$invite_row || !$user->id) {
             return false;
@@ -96,5 +55,29 @@ class InviteController extends Controller
         }
 
         return true;
+    }
+
+
+
+    public function checkInviteCodeIsValid($inviteCode) {
+        $invite = new InviteCode($inviteCode);
+        return $invite->isValid();
+    }
+
+    /**
+     * @param $inputCode
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function api_checkInviteCodeIsValid($inputCode) {
+        return response()->json([
+            "status" => $this->checkInviteCodeIsValid($inputCode),
+            "inviteCode" => $inputCode
+        ]);
+    }
+
+
+
+    public function createUser($username, $steamID) {
+        
     }
 }

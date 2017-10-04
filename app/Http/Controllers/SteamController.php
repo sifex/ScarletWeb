@@ -16,13 +16,22 @@ class SteamController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public static function url($callbackURL) {
+    public function url($callbackURL) {
         // New Steam Login
         $login = new SteamLogin();
         return $login->url($callbackURL);
     }
 
-    public static function callback() {
+    public function redirectToSteam($callback) {
+        return redirect($this->url($callback));
+    }
+
+
+    /**
+     * Steam Login Function
+     * @return bool|string
+     */
+    public function steamLogin() {
         $login = new SteamLogin();
         try {
             $steamID = $login->validate();
@@ -31,6 +40,22 @@ class SteamController extends Controller
         }
 
         return $steamID;
+    }
 
+    /**
+     * Steam Verify Login
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function steamVerifyLogin() {
+        $steamID = $this->steamLogin();
+
+        if(!$steamID) {
+            return redirect()->route('v2index');
+        }
+
+        $steamUser = new SteamUser($steamID, env('STEAM_API_KEY'));
+
+
+        return response()->json($steamUser);
     }
 }

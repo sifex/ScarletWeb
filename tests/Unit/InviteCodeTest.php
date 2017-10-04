@@ -14,6 +14,22 @@ class InviteCodeTest extends TestCase
 {
     use DatabaseTransactions;
 
+    public $testInviteCode;
+
+    public $testUser;
+
+    public function setUp() {
+        parent::setUp();
+
+        $this->testInviteCode = new InviteCode();
+        $this->testInviteCode->save();
+
+
+        $this->testUser = new User();
+        $this->testUser->save();
+
+    }
+
     /**
      * Check to see if adding an Invite Code and the checking it against the Check Invite Code
      *
@@ -21,10 +37,8 @@ class InviteCodeTest extends TestCase
      */
     public function testCheckInviteCode()
     {
-        $ic = new InviteCode();
-        $ic->save();
-
-        $this->assertTrue(InviteController::checkInviteCode($ic->invite_code));
+        $invite_controller = new InviteController();
+        $this->assertTrue($invite_controller->checkInviteCodeIsValid($this->testInviteCode->invite_code));
     }
 
     /**
@@ -34,7 +48,8 @@ class InviteCodeTest extends TestCase
      */
     public function testIncorrectCheckInviteCode()
     {
-        $this->assertFalse(InviteController::checkInviteCode('123456'));
+        $invite_controller = new InviteController();
+        $this->assertFalse($invite_controller->checkInviteCodeIsValid('123456'));
     }
 
 
@@ -45,18 +60,8 @@ class InviteCodeTest extends TestCase
      */
     public function testUserTakenInviteCode()
     {
-        $user = new User([
-            'email' => 'chess2ryme@gmail.com',
-            'password' => Hash::make('1827129361'),
-            'username' => 'TestingInviteCodeUser'
-        ]);
-        $user->save();
-
-        $ic = new InviteCode();
-        $ic->save();
-
         $invite_controller = new InviteController();
 
-        $this->assertTrue($invite_controller->assignInviteCode($ic->invite_code, $user));
+        $this->assertTrue($invite_controller->assignInviteCode($this->testInviteCode->invite_code, $this->testUser));
     }
 }
