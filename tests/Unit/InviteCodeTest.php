@@ -21,13 +21,13 @@ class InviteCodeTest extends TestCase
     public function setUp() {
         parent::setUp();
 
+        // New Invite Code
         $this->testInviteCode = new InviteCode();
         $this->testInviteCode->save();
 
-
+        // New User
         $this->testUser = new User();
         $this->testUser->save();
-
     }
 
     /**
