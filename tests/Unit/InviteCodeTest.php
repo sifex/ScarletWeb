@@ -18,6 +18,8 @@ class InviteCodeTest extends TestCase
 
     public $testUser;
 
+    public $inviteController;
+
     public function setUp() {
         parent::setUp();
 
@@ -28,6 +30,9 @@ class InviteCodeTest extends TestCase
         // New User
         $this->testUser = new User();
         $this->testUser->save();
+
+        // New Invite Controller
+        $this->inviteController = new InviteController();
     }
 
     /**
@@ -37,8 +42,9 @@ class InviteCodeTest extends TestCase
      */
     public function testCheckInviteCode()
     {
-        $invite_controller = new InviteController();
-        $this->assertTrue($invite_controller->checkInviteCodeIsValid($this->testInviteCode->invite_code));
+
+        $this->assertTrue(
+            $this->inviteController->checkInviteCodeIsValid($this->testInviteCode->invite_code));
     }
 
     /**
@@ -48,20 +54,29 @@ class InviteCodeTest extends TestCase
      */
     public function testIncorrectCheckInviteCode()
     {
-        $invite_controller = new InviteController();
-        $this->assertFalse($invite_controller->checkInviteCodeIsValid('123456'));
+        $this->assertFalse(
+            $this->inviteController->checkInviteCodeIsValid('123456'));
     }
-
 
     /**
      * Checking to see if the Invite Code returns false upon an invite code being incorrect
      *
      * @return void
      */
-    public function testUserTakenInviteCode()
-    {
-        $invite_controller = new InviteController();
+//    public function testUserTakenInviteCode()
+//    {
+//        $this->assertTrue(
+//            $this->invite_controller->assignInviteCode($this->testInviteCode->invite_code, $this->testUser));
+//    }
 
-        $this->assertTrue($invite_controller->assignInviteCode($this->testInviteCode->invite_code, $this->testUser));
+    /**
+     * Checking to see if the Invite Code returns false upon an invite code being incorrect
+     *
+     * @return void
+     */
+    public function testWithSpacesAroundInviteCode()
+    {
+        $this->assertTrue(
+            $this->inviteController->checkInviteCodeIsValid("    " . $this->testInviteCode->invite_code . "      "));
     }
 }

@@ -1,10 +1,12 @@
 <template>
-    <form class="input" @submit.prevent="submitForm">
-        <input v-model="inviteCode" type="text" placeholder="Invite Code"/>
-        <transition name="fade">
-            <span class="error" v-html="error" v-if="error.length > 0"></span>
-        </transition>
-    </form>
+    <transition name="fade">
+        <form class="input" @submit.prevent="submitForm">
+            <input v-model="inviteCode" type="text" placeholder="Invite Code"/>
+            <transition name="fade">
+                <span class="error" v-html="error" v-if="error.length > 0"></span>
+            </transition>
+        </form>
+    </transition>
 </template>
 
 <script>
@@ -20,6 +22,7 @@
         methods: {
             submitForm: function() {
                 var _this = this;
+                this.inviteCode = this.inviteCode.trim();
                 // Checking Invite Code
                 // If True ->
                 // this.$router.push('/invite/' + this.inviteCode)
@@ -32,9 +35,10 @@
 
                 axios.get('/api/invite/' + this.inviteCode)
                     .then(function (response) {
+                        console.log(response.data.status);
                         if(response.data.status) {
                             _this.error = "";
-                            _this.$emit('nextStep', response)
+                            _this.$router.push('/invite/' + _this.inviteCode)
                         } else {
                             _this.error = "Invalid Invite Code";
                         }

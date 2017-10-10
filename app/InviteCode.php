@@ -3,12 +3,26 @@
 namespace Scarlet;
 
 use Illuminate\Database\Eloquent\Model;
+use function PHPSTORM_META\type;
 
 /**
+ * ----------------------------------
+ *  Invite Code Model
+ * ----------------------------------
+ *
  * @property null invite_code
  */
 class InviteCode extends Model
 {
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+
     /**
      * Invite Code Length
      * This is going to screw me over later when this changes...
@@ -24,16 +38,21 @@ class InviteCode extends Model
     /**
      * InviteCode constructor.
      * @param null $invite_code
+     * @param array $attributes
      */
-    public function __construct($invite_code = null)
+    public function __construct()
     {
-        parent::__construct();
+        $this->invite_code = $this->generate();
+    }
 
-        $this->invite_code = $invite_code;
-
-        if($invite_code === null) {
-            $this->invite_code = $this->generate();
-        }
+    /**
+     * Set Invite Code
+     * @param $invite_code
+     * @return $this
+     */
+    public function setInviteCode($invite_code) {
+        $this->invite_code = trim($invite_code);
+        return $this;
     }
 
     /**
@@ -48,7 +67,6 @@ class InviteCode extends Model
         }
 
         return $invite_code;
-
     }
 
     /**
@@ -60,22 +78,13 @@ class InviteCode extends Model
             return false;
         }
 
-        $invite_row = $this->where('invite_code', $this->invite_code)->first();
+        $invite_row = $this::where('invite_code', $this->invite_code)->first();
 
         return empty($invite_row) || !$invite_row->userID;
     }
 
     public function assign($user) {
 
-    }
-
-    /**
-     * Sets the Invite Code
-     * @param string $invite_code
-     */
-    public function setInviteCode(string $invite_code)
-    {
-        $this->invite_code = $invite_code;
     }
 
 

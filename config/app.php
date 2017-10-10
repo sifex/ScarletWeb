@@ -179,9 +179,7 @@ return [
 
 		Barryvdh\Cors\ServiceProvider::class,
 		Intervention\Image\ImageServiceProvider::class,
-
-
-		Ehesp\SteamLogin\Laravel\SteamLoginServiceProvider::class,
+		Ehesp\SteamLogin\Laravel\SteamLoginServiceProvider::class
 
     ],
 

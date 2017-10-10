@@ -20,20 +20,6 @@ class InviteController extends Controller
         return view('splash.index');
     }
 
-
-
-
-
-//
-//    public function createUserWithSteamInfo($steamInfo) {
-//        $user = User::create([
-//            'username' => $steamInfo->steamID,
-//            'steamID' => $steamInfo->steamID64,
-//            'avatar' => $steamInfo->avatarFull
-//        ]);
-//    }
-//
-
     /**
      * Assign User to an Invite Code, hereby using the invite code up.
      * @param $inviteCode
@@ -60,9 +46,16 @@ class InviteController extends Controller
 
 
     public function checkInviteCodeIsValid($inviteCode) {
-        $invite = new InviteCode($inviteCode);
-        return $invite->isValid();
+        $invite = new InviteCode();
+        return $invite->setInviteCode($inviteCode)->isValid();
+
     }
+
+    /**
+     * ---------------------------------
+     *  API SECTION
+     * ---------------------------------
+     */
 
     /**
      * @param $inputCode
@@ -73,11 +66,5 @@ class InviteController extends Controller
             "status" => $this->checkInviteCodeIsValid($inputCode),
             "inviteCode" => $inputCode
         ]);
-    }
-
-
-
-    public function createUser($username, $steamID) {
-        
     }
 }

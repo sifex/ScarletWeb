@@ -5,16 +5,20 @@ namespace Scarlet\Http\Controllers;
 use Illuminate\Http\Request;
 use Scarlet\Http\Controllers\Controller;
 use Scarlet\Events\SteamConnect;
+use Scarlet\Steam\SteamUser;
 use Scarlet\User;
 use Ehesp\SteamLogin\SteamLogin;
 
 class SteamController extends Controller
 {
 
+    public function loginToSteamWithInviteCode($inviteCode) {
+        return redirect($this->url(url('/steam/callback/' . $inviteCode)));
+    }
+
     /**
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param $callbackURL
+     * @return string
      */
     public function url($callbackURL) {
         // New Steam Login
@@ -54,7 +58,6 @@ class SteamController extends Controller
         }
 
         $steamUser = new SteamUser($steamID, env('STEAM_API_KEY'));
-
 
         return response()->json($steamUser);
     }

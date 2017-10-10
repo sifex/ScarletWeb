@@ -15,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        ini_set('memory_limit', '2048M');
         Schema::defaultStringLength(191);
 
         if ($this->app->environment('local', 'testing')) {

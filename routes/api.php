@@ -38,3 +38,5 @@ Route::get('/build-badge/', 'APIController@badge');
 
 
 Route::get('/invite/{inviteCode}', 'InviteController@api_checkInviteCodeIsValid');
+
+Route::get('/clan/image', 'ClanController@getClanBackground');

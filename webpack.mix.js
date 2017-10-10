@@ -11,10 +11,19 @@ let mix = require('laravel-mix');
  |
  */
 
+mix.browserSync({
+    proxy: 'localhost:9090'
+});
+
 mix.js('resources/assets/js/app.js', 'public/js');
 mix.sass('resources/assets/sass/app.scss', 'public/css', {
     includePaths: ["node_modules/foundation-sites/scss/"]
+}).options({
+    hmrOptions: {
+        host: 'am.local',
+        port: '8090'
+    }
 });
 
 
-mix.browserSync('localhost:8080');
+

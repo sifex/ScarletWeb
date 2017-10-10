@@ -1,7 +1,6 @@
 <template>
     <button class="button" @click="goToSteamAPI()">
-        <i class="fa fa-steam-square" aria-hidden="true"></i>
-        Login to Scarlet with Steam&reg;
+        <i class="fa fa-steam-square" aria-hidden="true"></i>Login to Scarlet with Steam&reg;
     </button>
 </template>
 
@@ -20,11 +19,15 @@
 
 <style lang="scss" scoped>
 
-.button {
-    background-color: #323232;
-    color: #FFF;
-    border-radius: 5px;
-    margin-top: 10px;
-}
+    .button {
+        background-color: #474747;
+        color: #FFF;
+        border-radius: 5px;
+        margin-top: 10px;
+
+        i {
+            margin-right: 15px;
+        }
+    }
 
 </style>

@@ -13,3 +13,4 @@ composer.lock
 npm-debug.log
 _ide_helper.php
 /tests/Browser/_browser_ide_helper.php
+/public/hot

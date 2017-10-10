@@ -1,8 +1,10 @@
 
 FROM php:7-fpm
 
-RUN apt-get update && apt-get install -y libmcrypt-dev mysql-client libxml2-dev libpng-dev
+RUN apt-get update && apt-get install -y libmcrypt-dev mysql-client libxml2-dev libmagickwand-dev
 
-RUN docker-php-ext-install mcrypt pdo_mysql xml gd
+RUN pecl install imagick && docker-php-ext-enable imagick
+
+RUN docker-php-ext-install mcrypt pdo_mysql xml
 
 WORKDIR /var/www

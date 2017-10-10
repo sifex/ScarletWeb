@@ -12,6 +12,7 @@ class InviteCodeSeeder extends Seeder
      */
     public function run()
     {
-        InviteCode::create();
+        $invite_code = new InviteCode();
+        $invite_code->save();
     }
 }
