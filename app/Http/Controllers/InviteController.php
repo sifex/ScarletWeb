@@ -43,8 +43,6 @@ class InviteController extends Controller
         return true;
     }
 
-
-
     public function checkInviteCodeIsValid($inviteCode) {
         $invite = new InviteCode();
         return $invite->setInviteCode($inviteCode)->isValid();
@@ -67,4 +65,8 @@ class InviteController extends Controller
             "inviteCode" => $inputCode
         ]);
     }
+
+
+
+
 }

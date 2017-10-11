@@ -68,17 +68,18 @@
         background-size: cover;
         color: $white;
 
-    }
-    body {
-        min-height: 100vh;
-        background: url('/images/splash/scarlet_bg.jpg') no-repeat center;
-        -webkit-background-size: cover;
-        background-size: cover;
-        color: $white;
-
-        @include breakpoint(retina) {
-            background-image: url('/images/splash/scarlet_bg_2x.jpg');
+        &:after {
+            content: "";
+            z-index:0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.3);
+            border-radius:5px;
         }
+
     }
 
     .grid-x {
@@ -89,13 +90,13 @@
             position: relative;
             padding-top: 40px;
             padding-bottom: 40px;
-            -webkit-border-radius:10px;
-            -moz-border-radius:10px;
-            border-radius:10px;
+            border-radius:5px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.1);
+            overflow: hidden;
 
             &:before {
                 content: "";
-                z-index:0;
+                z-index:1;
                 position: absolute;
                 width: 100%;
                 height: 100%;
@@ -104,30 +105,12 @@
                 background: url('/images/splash/scarlet_bg.jpg') no-repeat center;
                 -webkit-background-size: 100vw 100vh;
                 background-size: 100vw 100vh;
-
-                -webkit-filter: blur(5px);
-                -moz-filter: blur(5px);
-                -o-filter: blur(5px);
-                -ms-filter: blur(5px);
-                filter: blur(5px);
-                -webkit-border-radius:10px;
-                -moz-border-radius:10px;
-                border-radius:10px;
-            }
-
-
-            &:after {
-                content: "";
-                z-index:0;
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                top: 0;
-                left: 0;
-                background-color: rgba(0,0,0,0.2);
-                -webkit-border-radius:10px;
-                -moz-border-radius:10px;
-                border-radius:10px;
+                -webkit-filter: blur(3px);
+                -moz-filter: blur(3px);
+                -o-filter: blur(3px);
+                -ms-filter: blur(3px);
+                filter: blur(3px);
+                border-radius:5px;
             }
         }
 
@@ -147,7 +130,6 @@
 
     .initial-splash-enter-active, .initial-splash-leave-active {
         transition: opacity .5s, transform .5s;
-
         transition-delay: 1.25s;
     }
 

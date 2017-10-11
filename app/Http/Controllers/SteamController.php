@@ -30,6 +30,12 @@ class SteamController extends Controller
         return redirect($this->url($callback));
     }
 
+    public function steamCallback() {
+        $steamUser = $this->steamVerifyLogin();
+        $user = Scarlet\User::create([
+
+        ]);
+    }
 
     /**
      * Steam Login Function
@@ -47,8 +53,8 @@ class SteamController extends Controller
     }
 
     /**
-     * Steam Verify Login
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * Verify Steam Login and return a steam user
+     * @return \Illuminate\Http\RedirectResponse|SteamUser
      */
     public function steamVerifyLogin() {
         $steamID = $this->steamLogin();

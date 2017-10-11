@@ -68,11 +68,10 @@
         left: 0;
         width: 100%;
         min-height: 100vh;
-        background: #333e53 url('/images/toRemove/bg.jpg') no-repeat center;
+        background: #333e53 url('/api/clan/1/image') no-repeat center;
         -webkit-background-size: cover;
         background-size: cover;
         color: $white;
-
 
         @include breakpoint(retina) {
             background-image: url('/images/toRemove/bg.jpg');
@@ -94,7 +93,6 @@
 
     .initial-splash-enter-active, .initial-splash-leave-active {
         transition: opacity .5s, transform .5s;
-
         transition-delay: 1.25s;
     }
 

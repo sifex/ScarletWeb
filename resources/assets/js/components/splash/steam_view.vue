@@ -6,7 +6,7 @@
             </div>
         </transition>
 
-        <div class="wrapper-invite-code grid-container">
+        <div class="wrapper grid-container">
             <div class="grid-x grid-padding-x align-center-middle text-center">
                 <div class="cell">
                     <img class="logo" src="/images/toRemove/logo.png" width="150" alt="">
@@ -53,7 +53,7 @@
             imagesLoaded(document.querySelector('.steam-view'), { background: true }, function() {
                 setTimeout(function() {
                     _this.loading = false;
-                }, 200)
+                }, 100)
 
             })
         }
@@ -69,18 +69,31 @@
         left: 0;
         width: 100%;
         min-height: 100vh;
-        background: #333e53 url('/images/toRemove/bg.jpg') no-repeat center;
+        background: #333e53 url('/api/clan/1/image') no-repeat center;
         -webkit-background-size: cover;
         background-size: cover;
         color: $white;
 
+        &:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.7);
+        }
 
         @include breakpoint(retina) {
-            background-image: url('/images/toRemove/bg.jpg');
+            background-image: url('/api/clan/1/image');
         }
         .grid-x {
             height: 100vh;
             padding-bottom: 80px;
+        }
+        .wrapper {
+            position: relative;
+            z-index: 3;
         }
 
         .logo {
@@ -105,6 +118,7 @@
             height: 100%;
             top: 0;
             left: 0;
+            z-index: 5;
 
             img {
                 position: absolute;
