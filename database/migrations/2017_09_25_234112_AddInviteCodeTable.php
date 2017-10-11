@@ -18,6 +18,7 @@ class AddInviteCodeTable extends Migration
             $table->string('invite_code');
             $table->integer('userID')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

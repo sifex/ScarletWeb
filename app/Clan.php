@@ -3,7 +3,7 @@
 namespace Scarlet;
 
 use Illuminate\Database\Eloquent\Model;
-use function PHPSTORM_META\type;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * ----------------------------------
@@ -14,6 +14,7 @@ use function PHPSTORM_META\type;
  */
 class Clan extends Model
 {
+    use SoftDeletes;
 
     /**
      * The attributes that aren't mass assignable.

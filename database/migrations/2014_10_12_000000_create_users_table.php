@@ -19,8 +19,8 @@ class CreateUsersTable extends Migration
             /**
              * Steam
              */
-			$table->string('steamID64');
-            $table->string('steamID');
+			$table->string('steamID64')->nullable();
+            $table->string('steamID')->nullable();
             $table->string('avatar')->nullable();
             $table->string('realName')->nullable();
 

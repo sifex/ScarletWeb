@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
 class CreateScarClansTable extends Migration
 {
     /**
@@ -18,6 +17,8 @@ class CreateScarClansTable extends Migration
 			$table->string('UID');
             $table->string('name')->nullable();
             $table->string('shortName')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
