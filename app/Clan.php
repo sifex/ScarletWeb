@@ -37,7 +37,7 @@ class Clan extends Model
 
     public function __construct()
     {
-        random_bytes(ceil($lenght / 2))
+        // random_bytes(ceil($this-> / 2))
     }
 
     /**
